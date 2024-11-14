@@ -1,5 +1,6 @@
 package com.javaweb.view;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.javaweb.controller.BuildingController;
@@ -58,9 +59,10 @@ public class BuildingListView {
 		buildingSearch.setStreet(street);
 		buildingSearch.setDistrict(district);
 		BuildingController buildingController = new BuildingController();
-		BuildingModel[] buildings = buildingController.findBuilding(buildingSearch);
-		for (BuildingModel item: buildings) {
-			//logic
+		List<BuildingModel> buildings = buildingController.findBuilding(buildingSearch);
+		System.out.println("");
+		for (BuildingModel building: buildings) {
+			System.out.println(building.getName()+" "+building.getAddress());
 		}
 	}
 
