@@ -8,14 +8,14 @@ import com.javaweb.Service.emyeuanh.BuildingEmyeuanh;
 import com.javaweb.dao.BuildingDao;
 import com.javaweb.dao.Impl.BuildingDaoImpl;
 import com.javaweb.dao.anhyeuem.BuildingAnhyeuem;
-import com.javaweb.model.BuildingModel;
+import com.javaweb.input.BuildingSearchInput;
 
 public class BuildingServiceImpl implements BuildingService {
 
 	private BuildingDao buildingDao = new BuildingDaoImpl();
 
 	@Override
-	public List<BuildingEmyeuanh> findBuilding(BuildingModel buildingModel) {
+	public List<BuildingEmyeuanh> findBuilding(BuildingSearchInput buildingModel) {
 		List<BuildingEmyeuanh> emyeuanhs = new ArrayList<>();
 		List<BuildingAnhyeuem> anhyeuems = buildingDao.findBuilding(buildingModel.getFloorArea(),
 				buildingModel.getName(), buildingModel.getWard(), buildingModel.getStreet(),

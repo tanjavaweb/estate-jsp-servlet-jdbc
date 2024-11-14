@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.javaweb.controller.BuildingController;
+import com.javaweb.input.BuildingSearchInput;
 import com.javaweb.model.BuildingModel;
+import com.javaweb.output.BuildingOutput;
 
 public class BuildingListView {
 	public static void main(String[] args) {
+		
 		String name = null;
 		String street = null;
 		String district = null;
@@ -52,16 +55,16 @@ public class BuildingListView {
 		}
 
 		input.close();
-		BuildingModel buildingSearch = new BuildingModel();
+		BuildingSearchInput buildingSearch = new BuildingSearchInput();
 		buildingSearch.setFloorArea(floorArea);
 		buildingSearch.setName(name);
 		buildingSearch.setWard(ward);
 		buildingSearch.setStreet(street);
 		buildingSearch.setDistrict(district);
 		BuildingController buildingController = new BuildingController();
-		List<BuildingModel> buildings = buildingController.findBuilding(buildingSearch);
+		List<BuildingOutput> buildings = buildingController.findBuilding(buildingSearch);
 		System.out.println("");
-		for (BuildingModel building: buildings) {
+		for (BuildingOutput building: buildings) {
 			System.out.println(building.getName()+" "+building.getAddress());
 		}
 	}
