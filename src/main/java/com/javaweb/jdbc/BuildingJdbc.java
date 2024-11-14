@@ -7,12 +7,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-public class JdbcMain {
+import com.javaweb.constant.SystemConstant;
+import com.javaweb.util.StringUtils;
+
+public class BuildingJdbc {
 
 	static final String DB_URL = "jdbc:mysql://localhost:3306/javacore72022";
 	static final String USER = "root";
 	static final String PASS = "MYSQLa123456789@";
-	static final String QUERY = "SELECT * FROM building";
 
 	public static void main(String[] args) {
 
@@ -65,20 +67,20 @@ public class JdbcMain {
 		input.close();
 
 		try {
-			StringBuilder query = new StringBuilder("select * from building where  1 = 1");
-			if (name != null && !name.isEmpty()) {
+			StringBuilder query = new StringBuilder("select * from building "+SystemConstant.ONE_EQUAL_ONE);
+			if (!StringUtils.isNullOrEmpty(name)) {
 				System.out.println("name is: " + name);
 				query.append(" and name like '%" + name + "%'");
 			}
-			if (street != null && !street.isEmpty()) {
+			if (!StringUtils.isNullOrEmpty(street)) {
 				System.out.println("street is: " + street);
 				query.append(" and street like '%" + street + "%'");
 			}
-			if (ward != null && !ward.isEmpty()) {
+			if (!StringUtils.isNullOrEmpty(ward)) {
 				System.out.println("ward is: " + ward);
 				query.append(" and ward like '%" + ward + "%'");
 			}
-			if (district != null && !district.isEmpty()) {
+			if (!StringUtils.isNullOrEmpty(district)) {
 				System.out.println("district is: " + district);
 				query.append(" and district like '%" + district + "%'");
 			}
