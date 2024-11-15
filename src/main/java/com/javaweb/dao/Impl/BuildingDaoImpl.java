@@ -110,11 +110,6 @@ public class BuildingDaoImpl implements BuildingDao {
 
 		return new ArrayList<>();
 	}
-//	public static void main(String[] args) {
-//		BuildingAnhyeuem[] results = new BuildingDaoImpl().findBuilding(100, "",  "",  "",  "");
-//		for (BuildingAnhyeuem item : results) {
-//			System.out.println(item.getName());
-//		}
-//	}
+
 
 }
