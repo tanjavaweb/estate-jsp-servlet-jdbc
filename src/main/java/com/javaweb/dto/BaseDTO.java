@@ -1,6 +1,6 @@
-package com.javaweb.model;
+package com.javaweb.dto;
 
-public class BaseModel {
+public class BaseDTO {
 	private Long id;
 
 	public Long getId() {

@@ -2,9 +2,9 @@ package com.javaweb.dao;
 
 import java.util.List;
 
-import com.javaweb.dao.anhyeuem.BuildingAnhyeuem;
+import com.javaweb.dto.BuildingDTO;
 
 public interface BuildingDao {
-	List<BuildingAnhyeuem> findBuilding(Integer floorArea, String name, String ward, String street, String district);
+	List<BuildingDTO> findBuilding(Integer floorArea, String name, String ward, String street, String district);
 
 }

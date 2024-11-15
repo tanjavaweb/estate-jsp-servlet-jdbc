@@ -1,6 +1,6 @@
-package com.javaweb.model;
+package com.javaweb.dto;
 
-public class CustomerModel extends BaseModel {
+public class CustomerDTO extends BaseDTO {
 	private Long id;
 	private String fullName;
 	private String phone;
