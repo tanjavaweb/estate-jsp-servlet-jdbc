@@ -2,7 +2,16 @@ package com.javaweb.output;
 
 public class BuildingOutput {
 	private String name;
+	private String type;
 	private String address;
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public String getName() {
 		return name;

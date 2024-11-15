@@ -9,22 +9,24 @@ import java.util.List;
 
 import com.javaweb.constant.SystemConstant;
 import com.javaweb.dao.BuildingDao;
-import com.javaweb.dao.anhyeuem.BuildingAnhyeuem;
+import com.javaweb.dto.BuildingDTO;
 import com.javaweb.util.ConnectionUtils;
 import com.javaweb.util.StringUtils;
 
 public class BuildingDaoImpl implements BuildingDao {
 
 	@Override
-	public List<BuildingAnhyeuem> findBuilding(Integer floorArea, String name, String ward, String street, String district) {
-//		BuildingAnhyeuem[] results = new BuildingAnhyeuem[1];
-		List<BuildingAnhyeuem> results = new ArrayList<>();
+	public List<BuildingDTO> findBuilding(Integer floorArea, String name, String ward, String street, String district) {
+		List<BuildingDTO> results = new ArrayList<>();
 		Connection conn = null;
 		Statement stmt = null;
-		ResultSet rs = null;	
+		Statement stmtt = null;
+		ResultSet rs = null;
+		ResultSet rst = null;
 
 		try {
-			StringBuilder query = new StringBuilder("select * from building "+SystemConstant.ONE_EQUAL_ONE);
+			StringBuilder queryt = new StringBuilder("select * from typebuilding ");
+			StringBuilder query = new StringBuilder("select * from building " + SystemConstant.ONE_EQUAL_ONE);
 			if (!StringUtils.isNullOrEmpty(name)) {
 				System.out.println("name is: " + name);
 				query.append(" and name like '%" + name + "%'");
@@ -45,26 +47,44 @@ public class BuildingDaoImpl implements BuildingDao {
 				System.out.println("floorArea is: " + floorArea);
 				query.append(" and floorArea = " + floorArea + "");
 			}
+
 			
 
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = ConnectionUtils.getConnection();
+			
 			stmt = conn.createStatement();
+			stmtt = conn.createStatement();
 			rs = stmt.executeQuery(query.toString());
-//			int i =0;
+			
 			while (rs.next()) {
-			BuildingAnhyeuem buildingAnhyeuem = new BuildingAnhyeuem();
-			buildingAnhyeuem.setName(rs.getString("name"));
-			buildingAnhyeuem.setStreet(rs.getString("street"));
-			buildingAnhyeuem.setWard(rs.getString("ward"));
-			buildingAnhyeuem.setDistrict(rs.getString("district"));
-			buildingAnhyeuem.setFloorArea(rs.getInt("floorarea"));
-//			results[i] = buildingAnhyeuem;
-//			i++;
-			results.add(buildingAnhyeuem);
+				BuildingDTO buildingDTO = new BuildingDTO();
+				buildingDTO.setName(rs.getString("name"));
+				buildingDTO.setStreet(rs.getString("street"));
+				buildingDTO.setWard(rs.getString("ward"));
+				buildingDTO.setDistrict(rs.getString("district"));
+				buildingDTO.setFloorArea(rs.getInt("floorarea"));
+//
+				StringBuilder variable = new StringBuilder("");
+				String st = rs.getString("type");
+				String[] words = st.split(",");
+				for (String word : words) {
+				rst = stmtt.executeQuery(queryt.toString());
+				while (rst.next()) {
+						if (rst.getString("code").equals(word)) {
+							variable.append(rst.getString("typename")+" ");
+						}
+						
+					}
+					
+				}
+
+				buildingDTO.setType(variable.toString());
+				results.add(buildingDTO);
 
 			}
-			return	results;
+
+			return results;
 		} catch (ClassNotFoundException | SQLException e) {
 			System.out.println("Eror: " + e.getMessage());
 		} finally {
@@ -78,13 +98,16 @@ public class BuildingDaoImpl implements BuildingDao {
 				if (rs != null) {
 					rs.close();
 				}
+				if (rst != null) {
+					rst.close();
+				}
 
 			} catch (SQLException e) {
 				System.out.println("Error: " + e.getMessage());
 			}
 
 		}
-		
+
 		return new ArrayList<>();
 	}
 //	public static void main(String[] args) {

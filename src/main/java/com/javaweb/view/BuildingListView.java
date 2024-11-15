@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import com.javaweb.controller.BuildingController;
 import com.javaweb.input.BuildingSearchInput;
-import com.javaweb.model.BuildingModel;
 import com.javaweb.output.BuildingOutput;
 
 public class BuildingListView {
@@ -16,7 +15,8 @@ public class BuildingListView {
 		String district = null;
 		String ward = null;
 		Integer floorArea = null;
-		Integer numberOfBasement = null;
+//		Integer numberOfBasement = null;
+//		String typeBuilding = null;
 		
 		Scanner input = new Scanner(System.in);
 		System.out.print("Enter name: ");
@@ -40,19 +40,22 @@ public class BuildingListView {
 				System.out.println("Vui lòng nhập một số nguyên hợp lệ.");
 			}
 		}
-		System.out.println("Enter numberOfBasement: ");
-		while (true) {
-			String line = input.nextLine();
-			if (line.isEmpty()) {
-				break;
-			}
-
-			try {
-				numberOfBasement = Integer.parseInt(line);
-			} catch (NumberFormatException e) {
-				System.out.println("Vui lòng nhập một số nguyên hợp lệ.");
-			}
-		}
+		
+//		System.out.println("Enter numberOfBasement: ");
+//		while (true) {
+//			String line = input.nextLine();
+//			if (line.isEmpty()) {
+//				break;
+//			}
+//
+//			try {
+//				numberOfBasement = Integer.parseInt(line);
+//			} catch (NumberFormatException e) {
+//				System.out.println("Vui lòng nhập một số nguyên hợp lệ.");
+//			}
+//		}
+//		System.out.print("Enter type building: ");
+//		typeBuilding = input.nextLine();
 
 		input.close();
 		BuildingSearchInput buildingSearch = new BuildingSearchInput();
@@ -61,12 +64,19 @@ public class BuildingListView {
 		buildingSearch.setWard(ward);
 		buildingSearch.setStreet(street);
 		buildingSearch.setDistrict(district);
+		
 		BuildingController buildingController = new BuildingController();
 		List<BuildingOutput> buildings = buildingController.findBuilding(buildingSearch);
 		System.out.println("");
 		for (BuildingOutput building: buildings) {
-			System.out.println(building.getName()+" "+building.getAddress());
+			System.out.println(building.getName()+" "+building.getType()+" "+building.getAddress());
 		}
 	}
 
 }
+
+//Norch tầng trệt nguyên căn  170 Bùi Thị Xuân Phạm Ngũ Lão Quận 1
+//Bảo Việt Building tầng trệt nguyên căn nội thất  233 Đồng Khởi Bến Nghé Quận 1
+//Vincom Landmark 81 tầng trệt nguyên căn nội thất  720A Điện Biên Phủ 22 Quận Bình Thạnh
+//Hạnh Phúc Building tầng trệt  55 Cách Mạng Tháng Tám An Hòa Ninh Kiều
+
